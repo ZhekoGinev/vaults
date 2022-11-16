@@ -1,4 +1,4 @@
 # My "private" knowledge base/vault  
-Contains information regarding:  
+Contains information related to:  
 - Linux
 - Docker
