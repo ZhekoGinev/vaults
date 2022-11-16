@@ -6,7 +6,6 @@
 ---
 
 ### balena entcher gpu fix  
-
 --disable-gpu-sandbox  
 (also pacman -S fuse2 on Arch)  
 
@@ -20,7 +19,6 @@ VBoxManage.exe setextradata "VM_Name" "GUI/LastGuestSizeHint" "1920,1080"
 ---
 
 ### Install latest version of git on Centos 7  
-
 sudo yum -y remove git  
 sudo yum -y remove git-*  
 sudo yum -y install https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm  
