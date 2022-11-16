@@ -1,10 +1,10 @@
 ---
 
-### docker initial setup:
+### docker sudo fix:
 
 sudo groupadd docker  
 sudo usermod -aG docker ${USER}  
-su -s ${USER}  
+su -s ${USER}  OR logout/login  
 docker run hello-world  
 
 if it doesn't work AFTER a modification (update, upgrade etc.)  
