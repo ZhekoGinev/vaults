@@ -18,4 +18,13 @@ docker exec container_name sh/bash -c "echo 'some text' >> volume/file_name"
 
 ---  
 
+### fix docker autocomplete not workig:  
+
+add the below to .zshrc:  
+
+autoload -Uz compinit  
+compinit  
+
+---  
+
 
