@@ -27,4 +27,19 @@ compinit
 
 ---  
 
+### fix git repo caching in Dockerfile:  
+
+"If you use GitHub (or gitlab or bitbucket too most likely) you can ADD the GitHub API's representation of your repo to a dummy location."  
+
+ADD https://api.github.com/repos/$USER/$REPO/git/refs/heads/$BRANCH version.json  
+RUN git clone -b $BRANCH https://github.com/$USER/$REPO.git $GIT_HOME/  
+
+The API call will return different results when the head changes, invalidating the docker cache.  
+//  
+"If you're dealing with private repos you can use github's x-oauth-basic authentication scheme with a personal access token like so:"  
+
+ADD https://$ACCESS_TOKEN:x-oauth-basic@api.github.com/repos/$USER/$REPO/git/refs/heads/$BRANCH version.json
+
+---  
+
 
