@@ -26,4 +26,9 @@ sudo yum -y install git
 
 ---
 
+### Resolution fix for Hyper-V:  
+
+set-vmvideo VM_NAME -horizontalresolution:1600 -verticalresolution:900 -resolutiontype single  
+
+---  
 
