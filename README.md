@@ -3,3 +3,4 @@ Contains information related to:
 - Linux
 - Docker
 - Azure
+- Git
