@@ -4,3 +4,10 @@ git for-each-ref --sort='-committerdate:iso8601' --format='%(committerdate:relat
 
 ---  
 
+### Create, delete, manage tags  
+
+Create - https://devconnected.com/how-to-create-git-tags/  
+Delete - https://devconnected.com/how-to-delete-local-and-remote-tags-on-git/  
+
+---  
+
