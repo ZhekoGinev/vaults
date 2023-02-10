@@ -32,3 +32,9 @@ set-vmvideo VM_NAME -horizontalresolution:1600 -verticalresolution:900 -resoluti
 
 ---  
 
+### Run command as another user:  
+
+runuser -l userNameHere -c 'command'  
+
+---  
+
