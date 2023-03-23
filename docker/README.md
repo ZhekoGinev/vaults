@@ -42,4 +42,22 @@ ADD https://$ACCESS_TOKEN:x-oauth-basic@api.github.com/repos/$USER/$REPO/git/ref
 
 ---  
 
+### reduce the size of a log file for running docker container:  
+
+docker inspect --format='{{.LogPath}}' container_name  
+
+yum install util-linux  
+
+sudo fallocate --collapse-range --offset 0 --length 10GiB /path/to/logfile-json.log  
+The above command deallocates the space from position 0 to the next 10GBs (adjust length to match)  
+for example  if the log file size is 15GB it will remove the first/oldest 10GBs  
+
+To setup log rotation:  
+
+echo '{"log-driver": "json-file", "log-opts": {"max-size": "10m", "max-file": "3"}}' | jq . > /etc/docker/daemon.json \
+  && systemctl restart docker  
+  
+
+---  
+
 
