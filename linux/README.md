@@ -38,3 +38,23 @@ runuser -l userNameHere -c 'command'
 
 ---  
 
+### Swap file mgmt  
+
+check swap - swapon -s  
+
+check if swap is configured to run at start - cat /etc/fstab  
+
+check swappiness - sudo cat /proc/sys/vm/swappiness  (There should be ann entry like "/swapfile   swap    swap    defaults        0 0")  
+
+cycle swap by turning it off - sudo swapoff <swap_name> or -a for all, then when the memory is recovered - sudo swapon <swap_name>/-a  
+
+want to change swap size?  
+
+sudo swapoff -a
+sudo fallocate -l <size>(e.g. 2G) /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile  
+  
+---  
+
