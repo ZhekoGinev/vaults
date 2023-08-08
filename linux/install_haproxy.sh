@@ -1,12 +1,28 @@
-LATEST_HAPROXY=$(wget -qO-  http://www.haproxy.org/download/2.0/src/ | egrep -o "haproxy-2\.[0-9]+\.[0-9]+" | head -1)
+#!/bin/bash
+
+# adjust to the version you want
+LATEST_HAPROXY=$(wget -qO-  http://www.haproxy.org/download/2.2/src/ | egrep -o "haproxy-2\.[0-9]+\.[0-9]+" | head -1)
+
 yum install -y gcc-c++ openssl-devel pcre-static pcre-devel systemd-devel wget
+
+if [ -d "/etc/haproxy" ]; then
+    rm -rf "/etc/haproxy"/*
+else
+    mkdir -p "/etc/haproxy"
+fi
+
 cd /usr/src/
+
 wget http://www.haproxy.org/download/2.0/src/${LATEST_HAPROXY}.tar.gz
-tar xzvf ${LATEST_HAPROXY}.tar.gz
+
+tar xzf ${LATEST_HAPROXY}.tar.gz
+
 cd /usr/src/${LATEST_HAPROXY}
+
 make TARGET=linux-glibc USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 USE_CRYPT_H=1 USE_LIBCRYPT=1 USE_SYSTEMD=1
-mkdir /etc/haproxy
+
 make install
+
 cat > /usr/lib/systemd/system/haproxy.service << 'EOL'
 [Unit]
 Description=HAProxy Load Balancer
@@ -15,9 +31,9 @@ After=syslog.target network.target
 
 [Service]
 Environment="CONFIG=/etc/haproxy/haproxy.cfg" "PIDFILE=/run/haproxy.pid"
-ExecStartPre=/usr/sbin/haproxy -f $CONFIG -c -q
-ExecStart=/usr/sbin/haproxy -Ws -f $CONFIG -p $PIDFILE
-ExecReload=/usr/sbin/haproxy -f $CONFIG -c -q
+ExecStartPre=/usr/local/sbin/haproxy -f $CONFIG -c -q
+ExecStart=/usr/local/sbin/haproxy -Ws -f $CONFIG -p $PIDFILE
+ExecReload=/usr/local/sbin/haproxy -f $CONFIG -c -q
 ExecReload=/bin/kill -USR2 $MAINPID
 KillMode=mixed
 Restart=always
@@ -50,5 +66,7 @@ listen LietenName
         mode tcp
         server YourServer 127.0.0.1:80
 EOL
-systemctl start haproxy
+
+
+systemctl enable --now haproxy
 systemctl status haproxy
